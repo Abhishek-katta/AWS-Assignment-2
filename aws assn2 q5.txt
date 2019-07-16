@@ -1,0 +1,157 @@
+passwordless SSH between two AWS EC2 instances
+
+
+1--Generate a ssh key pair in source machine.
+we get a Private key and a Public key
+2--Copy the public key to destination
+3--Connect from source using private key to destination.
+
+
+
+
+
+The Above Steps Between Source and Destination are Shown Below
+
+
+
+
+
+
+Source Instance or Instance 1
+
+https://aws.amazon.com/amazon-linux-2/
+No packages needed for security; 6 packages available
+Run "sudo yum update" to apply all updates.
+
+[ec2-user@ip-10-190-10-246 ~]$ ssh-keygen -t rsa
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/ec2-user/.ssh/id_rsa): /home/ec2-user/.ssh/id_rsa
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /home/ec2-user/.ssh/id_rsa.
+Your public key has been saved in /home/ec2-user/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:JIY9QSJkPjtnqntHV7+QjPRAVugWqg1eC21kS7ZEBiA ec2-user@ip-10-190-10-246.us-west-2.compute.internal
+The key's randomart image is:
++---[RSA 2048]----+
+|Eo=o+.oo.        |
+|.o o*+=.         |
+|  oB.B=..        |
+|  ooB.=+.        |
+| .oBo+ *So       |
+|  o=+ o = .      |
+|  .. .   . .     |
+| .. .     .      |
+|oo .             |
++----[SHA256]-----+
+[ec2-user@ip-10-190-10-246 ~]$ cat is_rsa.pub
+cat: is_rsa.pub: No such file or directory
+[ec2-user@ip-10-190-10-246 ~]$ cat /.ssh/id_rsa.pub
+cat: /.ssh/id_rsa.pub: No such file or directory
+[ec2-user@ip-10-190-10-246 ~]$ cat .ssh/id_rsa.pub
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDKjDD0sRLsyn7/0h0JtV1fSDuljsxk1yrnZK18J7zbL/Hor7vjHIFlfjAbW/5BUFTT7zV1jZA4RoROj1BghJD8PMo4lJ8t2dOUCfnV+ZIxHVrsZV3wEwzoPh8O2MAOvTtrOnQ3OtMre1H2/v8+7Mh/D7Za7E+NGUSvzMF4b1xmqXvwsXdQJcus3qm5ao113JyPfkIblQDnY6A+iWHXjmZKUcLgl3xOmy0xyU7tVp0fmUoHLSyBqnLTmhas9CBdQ+Jc25WmmQnDfndw7b4+Fqy4BgT6gZYTEjdZcADCO46HKSnCwgBbh2HeoBKzvlxhSmZ2U6QoqjHi1KOT6Bd+bHYl ec2-user@ip-10-190-10-246.us-west-2.compute.internal
+[ec2-user@ip-10-190-10-246 ~]$ ssh ec2-user@34.222.0.171
+The authenticity of host '34.222.0.171 (34.222.0.171)' can't be established.
+ECDSA key fingerprint is SHA256:BSPBz/qf0j5pdYOIp49Zgsx++Zg0WBwK/Xb3w8T6cZg.
+ECDSA key fingerprint is MD5:b3:77:ae:c5:82:7f:8f:ed:4b:54:2a:9c:78:ec:50:89.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '34.222.0.171' (ECDSA) to the list of known hosts.
+Permission denied (publickey,gssapi-keyex,gssapi-with-mic).
+[ec2-user@ip-10-190-10-246 ~]$ ll -a
+total 12
+drwx------ 3 ec2-user ec2-user  74 Jul 16 10:10 .
+drwxr-xr-x 3 root     root      22 Jul 16 10:10 ..
+-rw-r--r-- 1 ec2-user ec2-user  18 Jul 27  2018 .bash_logout
+-rw-r--r-- 1 ec2-user ec2-user 193 Jul 27  2018 .bash_profile
+-rw-r--r-- 1 ec2-user ec2-user 231 Jul 27  2018 .bashrc
+drwx------ 2 ec2-user ec2-user  80 Jul 16 10:33 .ssh
+[ec2-user@ip-10-190-10-246 ~]$ ssh ec2-user@34.222.0.171
+Permission denied (publickey,gssapi-keyex,gssapi-with-mic).
+[ec2-user@ip-10-190-10-246 ~]$ ssh ec2-user@34.222.0.171
+Permission denied (publickey,gssapi-keyex,gssapi-with-mic).
+[ec2-user@ip-10-190-10-246 ~]$ ^C
+[ec2-user@ip-10-190-10-246 ~]$ ssh ec2-34-222-0-171.us-west-2.compute.amazonaws.com
+The authenticity of host 'ec2-34-222-0-171.us-west-2.compute.amazonaws.com (10.190.11.244)' can't be established.
+ECDSA key fingerprint is SHA256:BSPBz/qf0j5pdYOIp49Zgsx++Zg0WBwK/Xb3w8T6cZg.
+ECDSA key fingerprint is MD5:b3:77:ae:c5:82:7f:8f:ed:4b:54:2a:9c:78:ec:50:89.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'ec2-34-222-0-171.us-west-2.compute.amazonaws.com,10.190.11.244' (ECDSA) to the list of known hosts.
+Enter passphrase for key '/home/ec2-user/.ssh/id_rsa':
+Last login: Tue Jul 16 10:17:26 2019 from 14.98.199.122
+
+       __|  __|_  )
+       _|  (     /   Amazon Linux 2 AMI
+      ___|\___|___|
+
+https://aws.amazon.com/amazon-linux-2/
+No packages needed for security; 6 packages available
+Run "sudo yum update" to apply all updates.
+[ec2-user@ip-10-190-11-244 ~]$ exit
+logout
+Connection to ec2-34-222-0-171.us-west-2.compute.amazonaws.com closed.
+[ec2-user@ip-10-190-10-246 ~]$ ssh 34.222.0.171
+Enter passphrase for key '/home/ec2-user/.ssh/id_rsa':
+Last login: Tue Jul 16 10:50:48 2019 from ip-10-190-10-246.us-west-2.compute.internal
+
+       __|  __|_  )
+       _|  (     /   Amazon Linux 2 AMI
+      ___|\___|___|
+
+https://aws.amazon.com/amazon-linux-2/
+No packages needed for security; 6 packages available
+Run "sudo yum update" to apply all updates.
+[ec2-user@ip-10-190-11-244 ~]$ exit
+logout
+Connection to 34.222.0.171 closed.
+[ec2-user@ip-10-190-10-246 ~]$ ssh ec2-user@34.222.0.171
+Enter passphrase for key '/home/ec2-user/.ssh/id_rsa':
+Last login: Tue Jul 16 10:53:05 2019 from 54.244.58.114
+
+       __|  __|_  )
+       _|  (     /   Amazon Linux 2 AMI
+      ___|\___|___|
+
+https://aws.amazon.com/amazon-linux-2/
+No packages needed for security; 6 packages available
+Run "sudo yum update" to apply all updates.
+[ec2-user@ip-10-190-11-244 ~]$ exit
+logout
+Connection to 34.222.0.171 closed.
+
+
+
+
+
+
+
+
+
+
+
+
+Destination Instance or Instance 2
+
+
+https://aws.amazon.com/amazon-linux-2/
+No packages needed for security; 6 packages available
+Run "sudo yum update" to apply all updates.
+
+[ec2-user@ip-10-190-11-244 ~]$ ls -a
+.  ..  .bash_logout  .bash_profile  .bashrc  .ssh
+[ec2-user@ip-10-190-11-244 ~]$ cd .ssh
+[ec2-user@ip-10-190-11-244 .ssh]$ vi authorized_keys
+[ec2-user@ip-10-190-11-244 .ssh]$ cd ..
+[ec2-user@ip-10-190-11-244 ~]$ ll -a
+total 20
+drwx------ 3 ec2-user ec2-user 113 Jul 16 10:31 .
+drwxr-xr-x 3 root     root      22 Jul 16 10:12 ..
+-rw-rw-r-- 1 ec2-user ec2-user 434 Jul 16 10:31 authorized_keys
+-rw-r--r-- 1 ec2-user ec2-user  18 Jul 27  2018 .bash_logout
+-rw-r--r-- 1 ec2-user ec2-user 193 Jul 27  2018 .bash_profile
+-rw-r--r-- 1 ec2-user ec2-user 231 Jul 27  2018 .bashrc
+drwx------ 2 ec2-user ec2-user  29 Jul 16 10:12 .ssh
+-rw------- 1 ec2-user ec2-user 629 Jul 16 10:31 .viminfo
+
+[ec2-user@ip-10-190-11-244 ~]$ ll .ssh/authorized_keys
+-rw------- 1 ec2-user ec2-user 434 Jul 16 10:43 .ssh/authorized_keys
+

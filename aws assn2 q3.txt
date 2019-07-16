@@ -1,0 +1,281 @@
+vpc-04d8cc8d46923976e
+
+subnet-1   subnet-0dc81c5552b9c0424 1e
+subnet-2   subnet-0c042ac0f61f4f787 1e  pub
+subnet-3   subnet-0550689e8bfd1763e 1d
+subnet-4   subnet-084dab993e386b8b0 1d  pub
+subnet-5   subnet-089a79b7d4389de4f 1c
+subnet-6   subnet-0bcd5a277bc819dfe 1c  pub
+
+Internet gateway   igw-04c9edca0ed8443e9
+route table   rtb-066bf56f2934455d2
+
+
+
+
+
+1--Create A VPC
+
+[ec2-user@ip-172-31-90-162 ~]$ aws ec2 create-vpc --cidr-block 10.0.0.0/16
+
+-----------------------------------------------------------------------------------------
+{
+    "Vpc": {
+        "VpcId": "vpc-04d8cc8d46923976e", 
+        ...
+    }
+}
+
+-----------------------------------------------------------------------------------------
+
+
+2--Create Subnets
+
+subnet--1
+
+[ec2-user@ip-172-31-90-162 ~]$ aws ec2 create-subnet --vpc-id vpc-04d8cc8d46923976e --cidr-block 10.0.0.0/19 --region us-east-1
+
+----------------------------------------------------------------------------------------
+{
+    "Subnet": {
+        "MapPublicIpOnLaunch": false,
+        "AvailabilityZoneId": "use1-az3",
+        "AvailableIpAddressCount": 8187,
+        "DefaultForAz": false,
+        "SubnetArn": "arn:aws:ec2:us-east-1:488599217855:subnet/subnet-0dc81c5552b9c0424",
+        "Ipv6CidrBlockAssociationSet": [],
+        "VpcId": "vpc-04d8cc8d46923976e",
+        "State": "pending",
+        "AvailabilityZone": "us-east-1e",
+        "SubnetId": "subnet-0dc81c5552b9c0424",
+        "OwnerId": "488599217855",
+        "CidrBlock": "10.0.0.0/19",
+        "AssignIpv6AddressOnCreation": false
+    }
+}
+------------------------------------------------------------------------------------------------
+
+subnet--2
+
+
+[ec2-user@ip-172-31-90-162 ~]$ aws ec2 create-subnet --vpc-id vpc-04d8cc8d46923976e --cidr-block 10.0.32.0/19 --region us-east-1
+
+------------------------------------------------------------------------------------------------
+{
+    "Subnet": {
+        "MapPublicIpOnLaunch": false,
+        "AvailabilityZoneId": "use1-az3",
+        "AvailableIpAddressCount": 8187,
+        "DefaultForAz": false,
+        "SubnetArn": "arn:aws:ec2:us-east-1:488599217855:subnet/subnet-0c042ac0f61f4f787",
+        "Ipv6CidrBlockAssociationSet": [],
+        "VpcId": "vpc-04d8cc8d46923976e",
+        "State": "pending",
+        "AvailabilityZone": "us-east-1e",
+        "SubnetId": "subnet-0c042ac0f61f4f787",
+        "OwnerId": "488599217855",
+        "CidrBlock": "10.0.32.0/19",
+        "AssignIpv6AddressOnCreation": false
+    }
+}
+
+---------------------------------------------------------------------------------------------------
+
+
+subnet--3
+
+[ec2-user@ip-172-31-90-162 ~]$ aws ec2 create-subnet --vpc-id vpc-04d8cc8d46923976e --cidr-block 10.0.64.0/19 --region us-east-1 --availability-zone us-east-1d
+
+-------------------------------------------------------------------------------------------------
+{
+    "Subnet": {
+        "MapPublicIpOnLaunch": false,
+        "AvailabilityZoneId": "use1-az1",
+        "AvailableIpAddressCount": 8187,
+        "DefaultForAz": false,
+        "SubnetArn": "arn:aws:ec2:us-east-1:488599217855:subnet/subnet-0550689e8bfd1763e",
+        "Ipv6CidrBlockAssociationSet": [],
+        "VpcId": "vpc-04d8cc8d46923976e",
+        "State": "pending",
+        "AvailabilityZone": "us-east-1d",
+        "SubnetId": "subnet-0550689e8bfd1763e",
+        "OwnerId": "488599217855",
+        "CidrBlock": "10.0.64.0/19",
+        "AssignIpv6AddressOnCreation": false
+    }
+}
+
+-----------------------------------------------------------------------------------------------------
+
+Subnet--4
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+[ec2-user@ip-172-31-90-162 ~]$ aws ec2 create-subnet --vpc-id vpc-04d8cc8d46923976e --cidr-block 10.0.96.0/19 --region us-east-1 --availability-zone us-east-1d
+{
+    "Subnet": {
+        "MapPublicIpOnLaunch": false,
+        "AvailabilityZoneId": "use1-az1",
+        "AvailableIpAddressCount": 8187,
+        "DefaultForAz": false,
+        "SubnetArn": "arn:aws:ec2:us-east-1:488599217855:subnet/subnet-084dab993e386b8b0",
+        "Ipv6CidrBlockAssociationSet": [],
+        "VpcId": "vpc-04d8cc8d46923976e",
+        "State": "pending",
+        "AvailabilityZone": "us-east-1d",
+        "SubnetId": "subnet-084dab993e386b8b0",
+        "OwnerId": "488599217855",
+        "CidrBlock": "10.0.96.0/19",
+        "AssignIpv6AddressOnCreation": false
+    }
+}
+
+--------------------------------------------------------------------------------------------------------
+
+
+subnet--5
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+[ec2-user@ip-172-31-90-162 ~]$ aws ec2 create-subnet --vpc-id vpc-04d8cc8d46923976e --cidr-block 10.0.128.0/19 --region us-east-1 --availability-zone us-east-1c
+{
+    "Subnet": {
+        "MapPublicIpOnLaunch": false,
+        "AvailabilityZoneId": "use1-az6",
+        "AvailableIpAddressCount": 8187,
+        "DefaultForAz": false,
+        "SubnetArn": "arn:aws:ec2:us-east-1:488599217855:subnet/subnet-089a79b7d4389de4f",
+        "Ipv6CidrBlockAssociationSet": [],
+        "VpcId": "vpc-04d8cc8d46923976e",
+        "State": "pending",
+        "AvailabilityZone": "us-east-1c",
+        "SubnetId": "subnet-089a79b7d4389de4f",
+        "OwnerId": "488599217855",
+        "CidrBlock": "10.0.128.0/19",
+        "AssignIpv6AddressOnCreation": false
+    }
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+subnet--6
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+[ec2-user@ip-172-31-90-162 ~]$ aws ec2 create-subnet --vpc-id vpc-04d8cc8d46923976e --cidr-block 10.0.160.0/19 --region us-east-1 --availability-zone us-east-1c
+{
+    "Subnet": {
+        "MapPublicIpOnLaunch": false,
+        "AvailabilityZoneId": "use1-az6",
+        "AvailableIpAddressCount": 8187,
+        "DefaultForAz": false,
+        "SubnetArn": "arn:aws:ec2:us-east-1:488599217855:subnet/subnet-0bcd5a277bc819dfe",
+        "Ipv6CidrBlockAssociationSet": [],
+        "VpcId": "vpc-04d8cc8d46923976e",
+        "State": "pending",
+        "AvailabilityZone": "us-east-1c",
+        "SubnetId": "subnet-0bcd5a277bc819dfe",
+        "OwnerId": "488599217855",
+        "CidrBlock": "10.0.160.0/19",
+        "AssignIpv6AddressOnCreation": false
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------
+
+
+
+3)--Create an Internet Gateway
+[ec2-user@ip-172-31-90-162 ~]$ aws ec2 create-internet-gateway
+You must specify a region. You can also configure your region by running "aws configure".
+[ec2-user@ip-172-31-90-162 ~]$ aws ec2 create-internet-gateway --region us-east-1
+
+
+--------------------------------------------------------------------------------------------------
+{
+    "InternetGateway": {
+        "Tags": [],
+        "Attachments": [],
+        "InternetGatewayId": "igw-04c9edca0ed8443e9"
+    }
+}
+
+-------------------------------------------------------------------------------------------------
+
+4)--Attach Internet Gateway to the VPC
+
+[ec2-user@ip-172-31-90-162 ~]$ aws ec2 attach-internet-gateway --vpc-id vpc-04d8cc8d46923976e --internet-gateway-id igw-04c9edca0ed8443e9 --region us-east-1
+
+
+5)--Create a Route Table
+
+[ec2-user@ip-172-31-90-162 ~]$ aws ec2 create-route-table --vpc-id vpc-04d8cc8d46923976e --region us-east-1
+
+--------------------------------------------------------------------
+{
+    "RouteTable": {
+        "Associations": [],
+        "RouteTableId": "rtb-066bf56f2934455d2",
+        "VpcId": "vpc-04d8cc8d46923976e",
+        "PropagatingVgws": [],
+        "Tags": [],
+        "Routes": [
+            {
+                "GatewayId": "local",
+                "DestinationCidrBlock": "10.0.0.0/16",
+                "State": "active",
+                "Origin": "CreateRouteTable"
+            }
+        ],
+        "OwnerId": "488599217855"
+    }
+}
+----------------------------------------------------------------------
+
+6)--Create a route in the route table that points all traffic (0.0.0.0/0) to the Internet gateway.
+
+[ec2-user@ip-172-31-90-162 ~]$ aws ec2 create-route --route-table-id rtb-066bf56f2934455d2 --destination-cidr-block 0.0.0.0/0 --gateway-id igw-04c9edca0ed8443e9 --region us-east-1
+
+{
+    "Return": true
+}
+
+
+---------------------------------------------------------------
+7)--Associate Subnet 1 with your Route Table to make it Public
+
+[ec2-user@ip-172-31-90-162 ~]$ aws ec2 associate-route-table  --subnet-id subnet-084dab993e386b8b0 --route-table-id rtb-066bf56f2934455d2 --region us-east-1
+
+{
+    "AssociationId": "rtbassoc-0585a76de395369f5"
+}
+---------------------------------------------------------------
+
+-------------------------------------------------------------------
+8)--Associate Subnet 3 with your Route Table to make it Public
+[ec2-user@ip-172-31-90-162 ~]$ aws ec2 associate-route-table  --subnet-id subnet-0c042ac0f61f4f787 --route-table-id rtb-066bf56f2934455d2 --region us-east-1
+
+{
+    "AssociationId": "rtbassoc-09205f62b398ca82b"
+}
+----------------------------------------------------------------
+
+-------------------------------------------------------------------
+9)--Associate Subnet 5 with your Route Table to make it Public
+[ec2-user@ip-172-31-90-162 ~]$ aws ec2 associate-route-table  --subnet-id subnet-0bcd5a277bc819dfe --route-table-id rtb-066bf56f2934455d2 --region us-east-1
+
+{
+    "AssociationId": "rtbassoc-0c262eafe0b0757a6"
+}
+
+------------------------------------------------------------------
+
+______________________________________________________________________________________________________________________________________________
+
+10)--Modify the Public Subnets in Such A Way That an Auto IP is assigned to then when an Instance is Created
+
+[ec2-user@ip-172-31-90-162 ~]$ aws ec2 modify-subnet-attribute --subnet-id subnet-0c042ac0f61f4f787 --map-public-ip-on-launch --region us-east-1
+
+[ec2-user@ip-172-31-90-162 ~]$ aws ec2 modify-subnet-attribute --subnet-id subnet-084dab993e386b8b0 --map-public-ip-on-launch --region us-east-1
+
+[ec2-user@ip-172-31-90-162 ~]$ aws ec2 modify-subnet-attribute --subnet-id subnet-0bcd5a277bc819dfe --map-public-ip-on-launch --region us-east-1
